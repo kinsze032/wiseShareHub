@@ -84,7 +84,7 @@
   > .form--steps-container {
     max-width: none;
     padding: 20px 30px 60px;
-    background-image: url(form-bg.jpg);
+    background-image: url("goodHands/static/goodHands/images/form-bg.jpg");
     background-size: cover;
     background-position: center right;
     min-height: 700px;
@@ -167,11 +167,11 @@
             margin-right: 20px;
 
             &-bag {
-              background-image: url(icon-bag.png);
+              background-image: url("goodHands/static/goodHands/images/icon-bag.png");
             }
 
             &-hand {
-              background-image: url(icon-hand.png);
+              background-image: url("goodHands/static/goodHands/images/icon-hand.png");
             }
           }
         }

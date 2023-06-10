@@ -40,6 +40,5 @@ class Donation(models.Model):
     # czy lepiej taki zapis jak poniżej (taki był w dokumentacji)
     # user = models.ForeignKey(User, models.SET_NULL, blank=True,null=True)
 
-
     def __str__(self):
         return f"Donation {self.id}"

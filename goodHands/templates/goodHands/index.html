@@ -107,8 +107,8 @@
       <div class="help--slides active" data-id="1">
         <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy. Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.</p>
 
-        <ul class="help--slides-items">
-            {% for institution in fund_institutions %}
+          <ul class="help--slides-items">
+            {% for institution in page_obj_fund %}
               <li>
                 <div class="col">
                   <div class="title">{{ institution.name }}</div>
@@ -124,13 +124,25 @@
               </li>
             {% endfor %}
         </ul>
-        <!-- Pagination
-        <ul class="help--slides-pagination">
-          <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="3">3</a></li>
-        </ul>
-        -->
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj_fund.has_previous %}
+                    <a href="?page=1#help">&laquo; first</a>
+                    <a href="?page={{ page_obj_fund.previous_page_number }}#help">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj_fund.number }} of {{ page_obj_fund.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj_fund.has_next %}
+                    <a href="?page={{ page_obj_fund.next_page_number }}#help">next</a>
+                    <a href="?page={{ page_obj_fund.paginator.num_pages }}#help">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
       </div>
 
 
@@ -139,7 +151,7 @@
         <p>W naszej bazie znajdziesz listę zweryfikowanych Organizacji pozarządowych, z którymi współpracujemy. Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.</p>
 
           <ul class="help--slides-items">
-            {% for institution in non_gov_institutions %}
+            {% for institution in page_obj_non_gov %}
               <li>
                 <div class="col">
                   <div class="title">{{ institution.name }}</div>
@@ -156,15 +168,24 @@
             {% endfor %}
         </ul>
 
-        <!-- Pagination
-        <ul class="help--slides-pagination">
-          <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="3">3</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="4">4</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="5">5</a></li>
-        </ul>
-        -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj_non_gov.has_previous %}
+                    <a href="?page=1#help">&laquo; first</a>
+                    <a href="?page={{ page_obj_non_gov.previous_page_number }}#help">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj_non_gov.number }} of {{ page_obj_non_gov.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj_non_gov.has_next %}
+                    <a href="?page={{ page_obj_non_gov.next_page_number }}#help">next</a>
+                    <a href="?page={{ page_obj_non_gov.paginator.num_pages }}#help">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
       </div>
 
       <!-- SLIDE 3 -->
@@ -172,7 +193,7 @@
         <p>W naszej bazie znajdziesz listę zweryfikowanych Lokalnych zbiórek, z którymi współpracujemy. Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.</p>
 
           <ul class="help--slides-items">
-            {% for institution in loc_col_institutions %}
+            {% for institution in page_obj_loc_col %}
               <li>
                 <div class="col">
                   <div class="title">{{ institution.name }}</div>
@@ -189,12 +210,23 @@
             {% endfor %}
         </ul>
 
-        <!-- Pagination
-        <ul class="help--slides-pagination">
-          <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
-        </ul>
-        -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj_loc_col.has_previous %}
+                    <a href="?page=1#help">&laquo; first</a>
+                    <a href="?page={{ page_obj_loc_col.previous_page_number }}#help">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj_loc_col.number }} of {{ page_obj_loc_col.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj_loc_col.has_next %}
+                    <a href="?page={{ page_obj_loc_col.next_page_number }}#help">next</a>
+                    <a href="?page={{ page_obj_loc_col.paginator.num_pages }}#help">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
       </div>
     </section>
 {% endblock %}

@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.shortcuts import render
 from django.views import View
@@ -17,12 +18,21 @@ class LandingPageView(View):
         non_gov_institutions = Institution.objects.filter(type=typy[1]).prefetch_related('categories')
         loc_col_institutions = Institution.objects.filter(type=typy[2]).prefetch_related('categories')
 
+        f_paginator = Paginator(fund_institutions, 5)
+        non_gov_paginator = Paginator(non_gov_institutions, 5)
+        loc_col_paginator = Paginator(loc_col_institutions, 5)
+        page_number = request.GET.get('page')
+        page_obj_fund = f_paginator.get_page(page_number)
+        page_obj_non_gov = non_gov_paginator.get_page(page_number)
+        page_obj_loc_col = loc_col_paginator.get_page(page_number)
+
+
         context = {
             'total_bags': total_bags,
             'total_institutions': total_institutions,
-            'fund_institutions': fund_institutions,
-            'non_gov_institutions': non_gov_institutions,
-            'loc_col_institutions': loc_col_institutions,
+            'page_obj_fund': page_obj_fund,
+            'page_obj_non_gov': page_obj_non_gov,
+            'page_obj_loc_col': page_obj_loc_col,
         }
         return render(request, self.template_name, context)
 

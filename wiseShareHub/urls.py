@@ -16,12 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from goodHands.views import landing_page, add_donation, login, register
+from goodHands.views import LandingPageView, AddDonationView, LoginView, RegisterView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', landing_page, name='landing_page'),
-    path('add_donation/', add_donation, name='add_donation'),
-    path('login/', login, name='login'),
-    path('register/', register, name='register'),
+    path('', LandingPageView.as_view(), name='landing_page'),
+    path('add_donation/', AddDonationView.as_view(), name='add_donation'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('register/', RegisterView.as_view(), name='register'),
 ]

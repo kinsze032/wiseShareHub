@@ -1,17 +1,39 @@
+from django.db.models import Sum
 from django.shortcuts import render
+from django.views import View
+
+from goodHands.models import Donation
 
 
-def landing_page(request):
-    return render(request, 'goodHands/index.html')
+class LandingPageView(View):
+    template_name = 'goodHands/index.html'
+
+    def get(self, request):
+        total_bags = Donation.objects.aggregate(Sum('quantity'))['quantity__sum']
+        total_institutions = Donation.objects.values('institution').count()
+        context = {
+            'total_bags': total_bags,
+            'total_institutions': total_institutions,
+        }
+        return render(request, self.template_name, context)
 
 
-def add_donation(request):
-    return render(request, 'goodHands/form.html')
+class AddDonationView(View):
+    template_name = 'goodHands/form.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
 
 
-def login(request):
-    return render(request, 'goodHands/login.html')
+class LoginView(View):
+    template_name = 'goodHands/login.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
 
 
-def register(request):
-    return render(request, 'goodHands/register.html')
+class RegisterView(View):
+    template_name = 'goodHands/register.html'
+
+    def get(self, request):
+        return render(request, self.template_name)

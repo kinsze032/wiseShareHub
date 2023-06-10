@@ -1,5 +1,5 @@
 {% extends 'goodHands/base.html' %}
-{%  load static %}
+{% load static %}
 {#<!DOCTYPE html>#}
 {#<html lang="pl">#}
 {#  <head>#}
@@ -80,7 +80,7 @@
         </div>
       </div>
 
-      <a href="#" class="btn btn--large">Załóż konto</a>
+      <a href="{% url 'register' %}" class="btn btn--large">Załóż konto</a>
     </section>
 
     <section id="about-us" class="about-us">

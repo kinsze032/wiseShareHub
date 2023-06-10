@@ -31,8 +31,8 @@
 
       @each $icon in $steps-icons {
         &--#{$icon} {
-          background-image: url("../images/icon-#{$icon}.png");
-          //background-image: url("goodHands/static/goodHands/images/icon-#{$icon}.png");
+          //background-image: url("../images/icon-#{$icon}.png");
+          background-image: url('../../../images/icon-#{$icon}.png');
         }
       }
     }

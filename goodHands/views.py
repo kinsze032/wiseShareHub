@@ -5,7 +5,7 @@ from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.views import View
 
-from goodHands.forms import LoginForm
+from goodHands.forms import LoginForm, RegisterForm
 from goodHands.models import Donation, Institution
 
 
@@ -93,6 +93,28 @@ class LogoutView(View):
 
 class RegisterView(View):
     template_name = "goodHands/register.html"
+    form_class = RegisterForm
 
     def get(self, request):
-        return render(request, self.template_name)
+        return render(request, self.template_name, {"form": self.form_class})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password1 = form.cleaned_data["password1"]
+            first_name = form.cleaned_data["first_name"]
+            last_name = form.cleaned_data["last_name"]
+            email = form.cleaned_data["email"]
+
+            User.objects.create_user(
+                username=username,
+                password=password1,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+            )
+            return redirect("login")
+
+        else:
+            return render(request, self.template_name, {"form": form})

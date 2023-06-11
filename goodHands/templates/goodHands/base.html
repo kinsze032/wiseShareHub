@@ -19,7 +19,7 @@
                 <ul class="dropdown">
                   <li><a href="#">Profil</a></li>
                   <li><a href="#">Ustawienia</a></li>
-                  {% if user.is_superuser and user.is_staff and is_active%}
+                  {% if user.is_superuser and user.is_staff and user.is_active%}
                     <li><a href="admin/">Panel administracyjny</a></li>
                   {% endif %}
                   <li><a href="{% url 'logout' %}">Wyloguj</a></li>

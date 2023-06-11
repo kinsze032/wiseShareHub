@@ -87,8 +87,8 @@ class LoginView(View):
 class LogoutView(View):
 
     def get(self, request, *args, **kwargs):
-        logout()
-        return redirect('login')
+        logout(request)
+        return redirect('landing_page')
 
 
 class RegisterView(View):

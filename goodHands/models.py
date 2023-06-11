@@ -1,5 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.contrib.auth.models import User
+
+User = get_user_model()
 
 
 class Category(models.Model):
@@ -37,8 +40,6 @@ class Donation(models.Model):
     pick_up_time = models.TimeField()
     pick_up_comment = models.TextField()
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    # czy lepiej taki zapis jak poniżej (taki był w dokumentacji)
-    # user = models.ForeignKey(User, models.SET_NULL, blank=True,null=True)
 
     def __str__(self):
         return f"Donation {self.id}"

@@ -425,7 +425,7 @@ h2:after {
   display: block;
   width: 256px;
   height: 40px;
-  background-image: url("goodHands/static/goodHands/images/decoration.svg");
+  background-image: url("../images/decoration.svg");
   background-size: contain;
   margin-top: 25px;
   margin-left: calc(50% - 128px);
@@ -849,7 +849,7 @@ form.form--contact textarea::placeholder {
 
 /* line 2, scss/modules/_header.scss */
 header.header--main-page {
-  background-image: url("goodHands/static/goodHands/images/header-bg.jpg");
+  background-image: url("../images/header-bg.jpg");
   background-position: bottom left -30vh;
   background-repeat: no-repeat;
   background-size: 70vw;
@@ -866,7 +866,7 @@ header.header--main-page {
 
 /* line 15, scss/modules/_header.scss */
 header.header--form-page {
-  background-image: url("goodHands/static/goodHands/images/header-form-bg.jpg");
+  background-image: url("../images/header-form-bg.jpg");
   background-position: top left -500px;
   background-repeat: no-repeat;
   background-size: auto 100%;
@@ -922,7 +922,7 @@ header .slogan--item h1:after {
   display: block;
   width: 256px;
   height: 40px;
-  background-image: url("goodHands/static/goodHands/images/decoration.svg");
+  background-image: url("../images/decoration.svg");
   background-size: contain;
   margin-top: 25px;
   margin-left: calc(50% - 128px);
@@ -1108,7 +1108,7 @@ header nav ul.nav--actions .logged-user:after {
   position: absolute;
   top: 0;
   right: 0;
-  background-image: url("goodHands/static/goodHands/images/icon-gear.png");
+  background-image: url("../images/icon-gear.png");
   background-size: cover;
 }
 
@@ -1167,7 +1167,7 @@ header nav ul li:last-of-type {
 
 /* line 1, scss/modules/_stats.scss */
 .stats {
-  background-image: url("goodHands/static/goodHands/images/stats-bg.jpg");
+  background-image: url("../images/stats-bg.jpg");
 }
 
 /* line 4, scss/modules/_stats.scss */
@@ -1783,7 +1783,7 @@ footer .bottom-line--icons a img {
   display: block;
   width: 256px;
   height: 40px;
-  background-image: url('../images/decoration.svg');
+  background-image: url("../images/decoration.svg");
   background-size: contain;
   margin-top: 25px;
   margin-left: calc(50% - 128px);

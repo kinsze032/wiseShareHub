@@ -52,6 +52,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+AUTH_USER_MODEL = "goodHands.User"
+AUTHENTICATION_BACKENDS = ['goodHands.backends.EmailBackend']
+
 ROOT_URLCONF = "wiseShareHub.urls"
 
 TEMPLATES = [

@@ -15,7 +15,7 @@ class LandingPageView(View):
     template_name = "goodHands/index.html"
 
     def get(self, request):
-        total_bags = Donation.objects.aggregate(Sum("quantity"))["quantity__sum"]
+        total_bags = Donation.objects.aggregate(Sum("quantity"))["quantity__sum"] or 0  # 0 if None
         total_institutions = Donation.objects.values("institution").count()
 
         typy = ["fundacja", "organizacja", "zbiórka"]
@@ -59,13 +59,7 @@ class LoginView(View):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
-            # Znajdź użytkownika na podstawie adresu e-mail
-            try:
-                user = User.objects.get(email=email)
-            except User.DoesNotExist:
-                user = None
-
-            user = authenticate(request, username=user.username, password=password)
+            user = authenticate(request, email=email, password=password)
 
             if user is not None:
                 login(request, user)
@@ -92,18 +86,16 @@ class RegisterView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            username = form.cleaned_data["username"]
+            email = form.cleaned_data["email"]
             password1 = form.cleaned_data["password1"]
             first_name = form.cleaned_data["first_name"]
             last_name = form.cleaned_data["last_name"]
-            email = form.cleaned_data["email"]
 
             User.objects.create_user(
-                username=username,
+                email=email,
                 password=password1,
                 first_name=first_name,
                 last_name=last_name,
-                email=email,
             )
             return redirect("login")
 

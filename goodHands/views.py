@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from django.db.models import Sum
+from django.db.models.functions import Coalesce
 from django.shortcuts import render, redirect
 from django.views import View
 
@@ -15,22 +16,22 @@ class LandingPageView(View):
     template_name = "goodHands/index.html"
 
     def get(self, request):
-        total_bags = Donation.objects.aggregate(Sum("quantity"))["quantity__sum"] or 0  # 0 if None
+        total_bags = Donation.objects.aggregate(total_quantity=Coalesce(Sum("quantity"), 0))
         total_institutions = Donation.objects.values("institution").count()
 
         typy = ["fundacja", "organizacja", "zbiórka"]
         fund_institutions = (
-            Institution.objects.filter(type=typy[0]).prefetch_related("categories").order_by("name")
+            Institution.objects.filter(type=typy[0]).order_by("name")
         )
         non_gov_institutions = (
-            Institution.objects.filter(type=typy[1]).prefetch_related("categories").order_by("name")
+            Institution.objects.filter(type=typy[1]).order_by("name")
         )
         loc_col_institutions = (
-            Institution.objects.filter(type=typy[2]).prefetch_related("categories").order_by("name")
+            Institution.objects.filter(type=typy[2]).order_by("name")
         )
 
         context = {
-            'total_bags': total_bags,
+            'total_bags': total_bags['total_quantity'],
             'total_institutions': total_institutions,
             'fund_institutions': fund_institutions,
             'non_gov_institutions': non_gov_institutions,

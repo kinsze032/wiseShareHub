@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "goodHands.apps.GoodhandsConfig",
-    "extendUser.apps.ExtenduserConfig",
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-AUTH_USER_MODEL = "extendUser.User"
+AUTH_USER_MODEL = "users.User"
 
 ROOT_URLCONF = "wiseShareHub.urls"
 

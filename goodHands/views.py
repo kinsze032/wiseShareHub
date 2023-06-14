@@ -17,7 +17,7 @@ class LandingPageView(View):
 
     def get(self, request):
         total_bags = Donation.objects.aggregate(total_quantity=Coalesce(Sum("quantity"), 0))
-        total_institutions = Donation.objects.values("institution").count()
+        total_institutions = Donation.objects.values("institution").distinct().count()
 
         typy = ["fundacja", "organizacja", "zbiórka"]
         fund_institutions = (

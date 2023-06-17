@@ -1,10 +1,10 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from .models import User
 
 
 @admin.register(User)
-class UserAdmin(UserAdmin):
+class UserAdmin(DjangoUserAdmin):
     model = User
     fieldsets = (
         (None, {"fields": (
@@ -38,5 +38,3 @@ class UserAdmin(UserAdmin):
         "user_permissions",
     )
 
-
-# admin.site.register(User, UserAdmin)

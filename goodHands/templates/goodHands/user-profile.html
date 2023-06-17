@@ -1,3 +1,4 @@
+{% extends "goodHands/base.html" %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="pl">
@@ -49,37 +50,26 @@
 
       <div class="slogan container container--90">
         <div class="slogan--item">
-          <h1>
-            Zacznij pomagać!<br />
-            Oddaj niechciane rzeczy w zaufane ręce
-          </h1>
+            <h2>Witaj, {{user.first_name}} {{user.last_name}}!</h2>
         </div>
       </div>
     </header>
-  {% endblock %}
-  {% block content %}{% endblock %}
 
-    <footer>
-      <div id="contact" class="contact">
-        <h2>Skontaktuj się z nami</h2>
-        <h3>Formularz kontaktowy</h3>
-        <form class="form--contact">
-          <div class="form-group form-group--50"><input type="text" name="name" placeholder="Imię" /></div>
-          <div class="form-group form-group--50"><input type="text" name="surname" placeholder="Nazwisko" /></div>
-
-          <div class="form-group"><textarea name="message" placeholder="Wiadomość" rows="1"></textarea></div>
-
-          <button class="btn" type="submit">Wyślij</button>
-        </form>
-      </div>
-      <div class="bottom-line">
-        <span class="bottom-line--copy">Copyright &copy; 2019</span>
-        <div class="bottom-line--icons">
-            <a href="#" class="btn btn--small"><img src="{% static 'goodHands/images/icon-facebook.svg' %}"/></a>
-            <a href="#" class="btn btn--small"><img src="{% static 'goodHands/images/icon-instagram.svg' %}"/></a>
-        </div>
-      </div>
-    </footer>
-    <script src="{% static 'goodHands/js/app.js' %}"></script>
-  </body>
-</html>
+{% endblock %}
+{% block content %}
+    <br><br><br>
+    <h2>Przekazane dary:</h2>
+    <ul>
+      {% for donation in donations %}
+        <li>
+            <h1><strong>Liczba worków:</strong> {{donation.quantity}}</h1><br>
+            <h1><strong>Organizacja:</strong> {{donation.institution.name}}</h1><br>
+            <h1><strong>Kategorie:</strong>
+                {% for category in donation.categories.all %}
+                    {{ category.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}</h1><br>
+            <h1><strong>Data odbioru:</strong> {{donation.pick_up_date}}</h1><br>
+        </li>
+      {% endfor %}
+    </ul>
+{% endblock %}

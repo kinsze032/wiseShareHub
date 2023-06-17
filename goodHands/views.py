@@ -112,3 +112,17 @@ class RegisterView(View):
         else:
             return render(request, self.template_name, {"form": form})
 
+
+class UserProfileView(View):
+    template_name = "goodHands/user-profile.html"
+
+    def get(self, request):
+        user = request.user
+        donations = Donation.objects.filter(user=user)
+
+        context = {
+            'user': user,
+            'donations': donations,
+        }
+
+        return render(request, self.template_name, context)

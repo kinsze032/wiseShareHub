@@ -228,13 +228,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (slide.dataset.step == this.currentStep) {
           slide.classList.add("active");
+                    if (this.currentStep === 5) {
+
+          const selectedOptions = document.querySelectorAll("[name='categories']:checked");
+          const selectedCategories = Array.from(selectedOptions).map(option => option.value);
+          const bags = document.querySelector("[name='bags']").value;
+          const organization = document.querySelector("[name='organization']").value;
+          const address = document.querySelector("[name='address']").value;
+          const city = document.querySelector("[name='city']").value;
+          const postcode = document.querySelector("[name='postcode']").value;
+          const phone = document.querySelector("[name='phone']").value;
+          const data = document.querySelector("[name='data']").value;
+          const time = document.querySelector("[name='time']").value;
+          const moreInfo = document.querySelector("[name='more_info']").value;
+          const summarySection = document.getElementsByClassName("summary")[0];
+          const summaryTextElements = summarySection.getElementsByClassName("summary--text");
+          const formSectionColumns = summarySection.getElementsByClassName("form-section--column");
+          const pickupAddressColumn = formSectionColumns[0].getElementsByTagName("ul");
+          const collectionDateColumn = formSectionColumns[1].getElementsByTagName("ul");
+          summaryTextElements[0].innerText = bags + ' worki zawierające: ' + selectedCategories.join(", ");
+          summaryTextElements[1].innerText = organization + "\" w " + city;
+          pickupAddressColumn[0].innerHTML = "<li>" + address + "</li><li>" + city + "</li><li>" + postcode + "</li><li>" + phone + "</li>";
+          collectionDateColumn[0].innerHTML = "<li>" + data + "</li><li>" + time + "</li><li>" + moreInfo + "</li>";
+          }
         }
       });
 
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
       this.$step.parentElement.hidden = this.currentStep >= 6;
 
-      // TODO: get data from inputs and show them in summary
     }
 
     /**
@@ -244,6 +266,23 @@ document.addEventListener("DOMContentLoaded", function() {
      */
     submit(e) {
       e.preventDefault();
+      // fetch(
+      //     wysyłanie danych do backendu
+      //       FormData
+      //       const form = document.querySelector('form');
+      //       const formData = new FormData(form);
+      //       const categories = formData.getAll('categories');
+      //       const bags = formData.get('bags');
+      //       const organization = formData.get('organization');
+      //       const address = formData.get('address');
+      //       const city = formData.get('city');
+      //       const postcode = formData.get('postcode');
+      //       const phone = formData.get('phone');
+      //       const data = formData.get('data');
+      //       const time = formData.get('time');
+      //       const moreInfo = formData.get('more_info');
+      //     )
+
       this.currentStep++;
       this.updateForm();
     }

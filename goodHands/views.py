@@ -6,8 +6,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from goodHands.forms import LoginForm, RegisterForm
-from goodHands.models import Donation, Institution
-
+from goodHands.models import Donation, Institution, Category
 
 User = get_user_model()
 
@@ -30,12 +29,15 @@ class LandingPageView(View):
             Institution.objects.filter(type=typy[2]).order_by("name")
         )
 
+        categories = Category.objects.all()
+
         context = {
             'total_bags': total_bags['total_quantity'],
             'total_institutions': total_institutions,
             'fund_institutions': fund_institutions,
             'non_gov_institutions': non_gov_institutions,
             'loc_col_institutions': loc_col_institutions,
+            'categories': categories,
         }
         return render(request, self.template_name, context)
 
@@ -44,7 +46,14 @@ class AddDonationView(View):
     template_name = "goodHands/form.html"
 
     def get(self, request):
-        return render(request, self.template_name)
+        categories = Category.objects.all()
+        institutions = Institution.objects.all()
+
+        context = {
+            'categories': categories,
+            'institutions': institutions,
+        }
+        return render(request, self.template_name, context)
 
 
 class LoginView(View):
@@ -102,3 +111,4 @@ class RegisterView(View):
 
         else:
             return render(request, self.template_name, {"form": form})
+

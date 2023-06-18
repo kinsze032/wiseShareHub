@@ -228,28 +228,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (slide.dataset.step == this.currentStep) {
           slide.classList.add("active");
-                    if (this.currentStep === 5) {
-
+        if (this.currentStep === 5) {
           const selectedOptions = document.querySelectorAll("[name='categories']:checked");
           const selectedCategories = Array.from(selectedOptions).map(option => option.dataset.categoryName);
-          const bags = document.querySelector("[name='bags']").value;
-          const organization = document.querySelector("[name='organization']").value;
+          const quantity = document.querySelector("[name='quantity']").value;
+          const institutionInput = document.querySelector("[name='institution']:checked");
+          const institution = institutionInput.dataset.institutionName;
           const address = document.querySelector("[name='address']").value;
           const city = document.querySelector("[name='city']").value;
-          const postcode = document.querySelector("[name='postcode']").value;
-          const phone = document.querySelector("[name='phone']").value;
-          const data = document.querySelector("[name='data']").value;
-          const time = document.querySelector("[name='time']").value;
-          const moreInfo = document.querySelector("[name='more_info']").value;
+          const zip_code = document.querySelector("[name='zip_code']").value;
+          const phone_number = document.querySelector("[name='phone_number']").value;
+          const pick_up_date = document.querySelector("[name='pick_up_date']").value;
+          const pick_up_time = document.querySelector("[name='pick_up_time']").value;
+          const pick_up_comment = document.querySelector("[name='pick_up_comment']").value;
           const summarySection = document.getElementsByClassName("summary")[0];
           const summaryTextElements = summarySection.getElementsByClassName("summary--text");
           const formSectionColumns = summarySection.getElementsByClassName("form-section--column");
           const pickupAddressColumn = formSectionColumns[0].getElementsByTagName("ul");
           const collectionDateColumn = formSectionColumns[1].getElementsByTagName("ul");
-          summaryTextElements[0].innerText = bags + ' worki zawierające: ' + selectedCategories.join(", ");
-          summaryTextElements[1].innerText = organization
-          pickupAddressColumn[0].innerHTML = "<li>" + address + "</li><li>" + city + "</li><li>" + postcode + "</li><li>" + phone + "</li>";
-          collectionDateColumn[0].innerHTML = "<li>" + data + "</li><li>" + time + "</li><li>" + moreInfo + "</li>";
+          summaryTextElements[0].innerText = quantity + ' worki zawierające: ' + selectedCategories.join(", ");
+          summaryTextElements[1].innerText = institution
+          pickupAddressColumn[0].innerHTML = "<li>" + address + "</li><li>" + city + "</li><li>" + zip_code + "</li><li>" + phone_number + "</li>";
+          collectionDateColumn[0].innerHTML = "<li>" + pick_up_date + "</li><li>" + pick_up_time + "</li><li>" + pick_up_comment + "</li>";
           }
         }
       });
@@ -266,28 +266,30 @@ document.addEventListener("DOMContentLoaded", function() {
      */
     submit(e) {
       e.preventDefault();
-        //
-        // const form = document.querySelector('.form--steps');
-        // const formData = new FormData(form);
-      // fetch(
-      //     wysyłanie danych do backendu
-      //       FormData
-      //       const form = document.querySelector('form');
-      //       const formData = new FormData(form);
-      //       const categories = formData.getAll('categories');
-      //       const bags = formData.get('bags');
-      //       const organization = formData.get('organization');
-      //       const address = formData.get('address');
-      //       const city = formData.get('city');
-      //       const postcode = formData.get('postcode');
-      //       const phone = formData.get('phone');
-      //       const data = formData.get('data');
-      //       const time = formData.get('time');
-      //       const moreInfo = formData.get('more_info');
-      //     )
 
-      this.currentStep++;
-      this.updateForm();
+        let form = document.querySelector(".form--steps form");
+        const formData = new FormData(form);
+
+        //   // Wyświetlanie zawartości FormData w konsoli
+        // for (let [key, value] of formData) {
+        //     console.log(key + ': ' + value);
+        // }
+
+        fetch('/add_donation/', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => {
+          if (response.ok) {
+            this.currentStep++;
+            this.updateForm();
+          } else {
+            console.error('Wysyłanie danych nie powiodło się.');
+          }
+        })
+        .catch(error => {
+          console.error('Wystąpił błąd:', error);
+        });
     }
   }
   const form = document.querySelector(".form--steps");

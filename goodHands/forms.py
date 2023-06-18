@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import User
+from users.models import User
+from .models import Donation
 
 
 class LoginForm(forms.Form):
@@ -43,3 +44,21 @@ class RegisterForm(forms.Form):
 
         if email and User.objects.filter(email=email).exists():
             raise ValidationError("Email nie jest dostępny")
+
+
+class DonationForm(forms.ModelForm):
+    class Meta:
+        model = Donation
+        fields = [
+            "quantity",
+            "categories",
+            "institution",
+            "address",
+            "phone_number",
+            "city",
+            "zip_code",
+            "pick_up_date",
+            "pick_up_time",
+            "pick_up_comment",
+        ]
+        exclude = ['user']

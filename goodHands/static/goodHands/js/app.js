@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (this.currentStep === 5) {
 
           const selectedOptions = document.querySelectorAll("[name='categories']:checked");
-          const selectedCategories = Array.from(selectedOptions).map(option => option.value);
+          const selectedCategories = Array.from(selectedOptions).map(option => option.dataset.categoryName);
           const bags = document.querySelector("[name='bags']").value;
           const organization = document.querySelector("[name='organization']").value;
           const address = document.querySelector("[name='address']").value;
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function() {
           const pickupAddressColumn = formSectionColumns[0].getElementsByTagName("ul");
           const collectionDateColumn = formSectionColumns[1].getElementsByTagName("ul");
           summaryTextElements[0].innerText = bags + ' worki zawierające: ' + selectedCategories.join(", ");
-          summaryTextElements[1].innerText = organization + "\" w " + city;
+          summaryTextElements[1].innerText = organization
           pickupAddressColumn[0].innerHTML = "<li>" + address + "</li><li>" + city + "</li><li>" + postcode + "</li><li>" + phone + "</li>";
           collectionDateColumn[0].innerHTML = "<li>" + data + "</li><li>" + time + "</li><li>" + moreInfo + "</li>";
           }
@@ -266,6 +266,9 @@ document.addEventListener("DOMContentLoaded", function() {
      */
     submit(e) {
       e.preventDefault();
+        //
+        // const form = document.querySelector('.form--steps');
+        // const formData = new FormData(form);
       // fetch(
       //     wysyłanie danych do backendu
       //       FormData

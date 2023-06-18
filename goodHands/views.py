@@ -60,7 +60,13 @@ class AddDonationView(View):
         if form.is_valid():
             donation = form.save(commit=False)
             donation.user = request.user
+            categories = form.cleaned_data.get('categories')
             donation.save()
+
+            if categories:
+                donation.categories.set(categories)
+
+            print("Przekierowanie do form-confirmation")
             return redirect('form-confirmation')
 
         return render(request, self.template_name, {'form': form})

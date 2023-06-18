@@ -229,11 +229,11 @@ document.addEventListener("DOMContentLoaded", function() {
         if (slide.dataset.step == this.currentStep) {
           slide.classList.add("active");
         if (this.currentStep === 5) {
-          const selectedOptions = document.querySelectorAll("[name='categories']:checked");
-          const selectedCategories = Array.from(selectedOptions).map(option => option.dataset.categoryName);
+          const categories = document.querySelectorAll("[name='categories']:checked");
+          const selectedCategories = Array.from(categories).map(option => option.dataset.categoryName);
           const quantity = document.querySelector("[name='quantity']").value;
-          const institutionInput = document.querySelector("[name='institution']:checked");
-          const institution = institutionInput.dataset.institutionName;
+          const institution = document.querySelector("[name='institution']:checked");
+          const institutionName = institution.dataset.institutionName;
           const address = document.querySelector("[name='address']").value;
           const city = document.querySelector("[name='city']").value;
           const zip_code = document.querySelector("[name='zip_code']").value;
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function() {
           const pickupAddressColumn = formSectionColumns[0].getElementsByTagName("ul");
           const collectionDateColumn = formSectionColumns[1].getElementsByTagName("ul");
           summaryTextElements[0].innerText = quantity + ' worki zawierające: ' + selectedCategories.join(", ");
-          summaryTextElements[1].innerText = institution
+          summaryTextElements[1].innerText = institutionName
           pickupAddressColumn[0].innerHTML = "<li>" + address + "</li><li>" + city + "</li><li>" + zip_code + "</li><li>" + phone_number + "</li>";
           collectionDateColumn[0].innerHTML = "<li>" + pick_up_date + "</li><li>" + pick_up_time + "</li><li>" + pick_up_comment + "</li>";
           }

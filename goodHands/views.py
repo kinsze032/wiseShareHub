@@ -66,7 +66,6 @@ class AddDonationView(View):
             if categories:
                 donation.categories.set(categories)
 
-            print("Przekierowanie do form-confirmation")
             return redirect('form-confirmation')
 
         return render(request, self.template_name, {'form': form})

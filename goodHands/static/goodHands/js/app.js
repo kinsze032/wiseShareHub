@@ -228,35 +228,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (slide.dataset.step == this.currentStep) {
           slide.classList.add("active");
-        if (this.currentStep === 5) {
-          const categories = document.querySelectorAll("[name='categories']:checked");
-          const selectedCategories = Array.from(categories).map(option => option.dataset.categoryName);
-          const quantity = document.querySelector("[name='quantity']").value;
-          const institution = document.querySelector("[name='institution']:checked");
-          const institutionName = institution.dataset.institutionName;
-          const address = document.querySelector("[name='address']").value;
-          const city = document.querySelector("[name='city']").value;
-          const zip_code = document.querySelector("[name='zip_code']").value;
-          const phone_number = document.querySelector("[name='phone_number']").value;
-          const pick_up_date = document.querySelector("[name='pick_up_date']").value;
-          const pick_up_time = document.querySelector("[name='pick_up_time']").value;
-          const pick_up_comment = document.querySelector("[name='pick_up_comment']").value;
-          const summarySection = document.getElementsByClassName("summary")[0];
-          const summaryTextElements = summarySection.getElementsByClassName("summary--text");
-          const formSectionColumns = summarySection.getElementsByClassName("form-section--column");
-          const pickupAddressColumn = formSectionColumns[0].getElementsByTagName("ul");
-          const collectionDateColumn = formSectionColumns[1].getElementsByTagName("ul");
-          summaryTextElements[0].innerText = quantity + ' worki zawierające: ' + selectedCategories.join(", ");
-          summaryTextElements[1].innerText = institutionName
-          pickupAddressColumn[0].innerHTML = "<li>" + address + "</li><li>" + city + "</li><li>" + zip_code + "</li><li>" + phone_number + "</li>";
-          collectionDateColumn[0].innerHTML = "<li>" + pick_up_date + "</li><li>" + pick_up_time + "</li><li>" + pick_up_comment + "</li>";
-          }
         }
       });
 
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
       this.$step.parentElement.hidden = this.currentStep >= 6;
 
+      // TODO: get data from inputs and show them in summary
+
+      if (this.currentStep === 5) {
+        const categories = document.querySelectorAll("[name='categories']:checked");
+        const selectedCategories = Array.from(categories).map(option => option.dataset.categoryName);
+        const quantity = document.querySelector("[name='quantity']").value;
+        const institution = document.querySelector("[name='institution']:checked");
+        const institutionName = institution.dataset.institutionName;
+        const address = document.querySelector("[name='address']").value;
+        const city = document.querySelector("[name='city']").value;
+        const zip_code = document.querySelector("[name='zip_code']").value;
+        const phone_number = document.querySelector("[name='phone_number']").value;
+        const pick_up_date = document.querySelector("[name='pick_up_date']").value;
+        const pick_up_time = document.querySelector("[name='pick_up_time']").value;
+        const pick_up_comment = document.querySelector("[name='pick_up_comment']").value;
+        const summarySection = document.getElementsByClassName("summary")[0];
+        const summaryTextElements = summarySection.getElementsByClassName("summary--text");
+        const formSectionColumns = summarySection.getElementsByClassName("form-section--column");
+        const pickupAddressColumn = formSectionColumns[0].getElementsByTagName("ul");
+        const collectionDateColumn = formSectionColumns[1].getElementsByTagName("ul");
+        summaryTextElements[0].innerText = quantity + ' worki zawierające: ' + selectedCategories.join(", ");
+        summaryTextElements[1].innerText = institutionName
+        pickupAddressColumn[0].innerHTML = "<li>" + address + "</li><li>" + city + "</li><li>" + zip_code + "</li><li>" + phone_number + "</li>";
+        collectionDateColumn[0].innerHTML = "<li>" + pick_up_date + "</li><li>" + pick_up_time + "</li><li>" + pick_up_comment + "</li>";
+        }
     }
 
     /**
@@ -281,8 +283,7 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(response => {
           if (response.ok) {
-            this.currentStep++;
-            this.updateForm();
+            window.location.assign("/form-confirmation/");
           } else {
             console.error('Wysyłanie danych nie powiodło się.');
           }
@@ -290,6 +291,9 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => {
           console.error('Wystąpił błąd:', error);
         });
+
+        // this.currentStep++;
+        // this.updateForm();
     }
   }
   const form = document.querySelector(".form--steps");

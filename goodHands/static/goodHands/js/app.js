@@ -279,12 +279,14 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(response => {
           if (response.ok) {
-            let data = response.json()
-            window.location.assign(data.url);
+            return response.json();
           } else {
             console.error('Wysyłanie danych nie powiodło się.');
           }
         })
+        .then(data => {
+          window.location.assign(data.url);
+          })
         .catch(error => {
           console.error('Wystąpił błąd:', error);
         });

@@ -272,10 +272,6 @@ document.addEventListener("DOMContentLoaded", function() {
         let form = document.querySelector(".form--steps form");
         const formData = new FormData(form);
 
-        //   // Wyświetlanie zawartości FormData w konsoli
-        // for (let [key, value] of formData) {
-        //     console.log(key + ': ' + value);
-        // }
 
         fetch('/add_donation/', {
           method: 'POST',
@@ -283,7 +279,8 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(response => {
           if (response.ok) {
-            window.location.assign("/form-confirmation/");
+            let data = response.json()
+            window.location.assign(data.url);
           } else {
             console.error('Wysyłanie danych nie powiodło się.');
           }
@@ -292,8 +289,8 @@ document.addEventListener("DOMContentLoaded", function() {
           console.error('Wystąpił błąd:', error);
         });
 
-        // this.currentStep++;
-        // this.updateForm();
+        this.currentStep++;
+        this.updateForm();
     }
   }
   const form = document.querySelector(".form--steps");

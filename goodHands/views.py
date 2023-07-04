@@ -2,12 +2,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import View
+from django.views.generic import CreateView
 
-from goodHands.forms import LoginForm, RegisterForm, DonationForm
+from goodHands.forms import LoginForm, DonationForm, UserCreationForm
+# from goodHands.forms import RegisterForm
 from goodHands.models import Donation, Institution, Category
 
 User = get_user_model()
@@ -110,31 +112,17 @@ class LogoutView(View):
         return redirect('landing_page')
 
 
-class RegisterView(View):
+class RegisterView(CreateView):
     template_name = "goodHands/register.html"
-    form_class = RegisterForm
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
 
-    def get(self, request):
-        return render(request, self.template_name, {"form": self.form_class})
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data["email"]
-            password1 = form.cleaned_data["password1"]
-            first_name = form.cleaned_data["first_name"]
-            last_name = form.cleaned_data["last_name"]
-
-            User.objects.create_user(
-                email=email,
-                password=password1,
-                first_name=first_name,
-                last_name=last_name,
-            )
-            return redirect("login")
-
-        else:
-            return render(request, self.template_name, {"form": form})
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.first_name = form.cleaned_data['first_name']
+        user.last_name = form.cleaned_data['last_name']
+        user.save()
+        return HttpResponseRedirect(self.success_url)
 
 
 class UserProfileView(View):

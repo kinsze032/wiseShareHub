@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
-from .models import User
+from django.contrib.auth import get_user_model
+from goodHands.forms import UserCreationForm
+
+User = get_user_model()
 
 
 @admin.register(User)
@@ -29,6 +32,7 @@ class UserAdmin(DjangoUserAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
+    add_form = UserCreationForm
     list_display = ("email", "first_name", "last_name", "is_superuser", "is_active", "last_login")
     list_filter = ("is_staff", "is_active")
     search_fields = ('email', 'first_name', 'last_name')

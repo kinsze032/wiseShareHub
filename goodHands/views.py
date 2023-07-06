@@ -9,7 +9,6 @@ from django.views import View
 from django.views.generic import CreateView
 
 from goodHands.forms import LoginForm, DonationForm, UserCreationForm
-# from goodHands.forms import RegisterForm
 from goodHands.models import Donation, Institution, Category
 
 User = get_user_model()
